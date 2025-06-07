@@ -41,8 +41,6 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 
-source ~/.prompt.sh 
-
 alias mk='make -j4'
 alias ls='eza'
 alias ll="eza -la"
@@ -57,6 +55,9 @@ alias lg="lazygit"
 
 export EDITOR="nvim"
 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(starship init zsh)"
+
 path=('/home/senargha/.local/bin' $path)
 export PATH
 
@@ -65,6 +66,12 @@ bindkey "^R" history-incremental-search-backward
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/argha/google-cloud-sdk/path.zsh.inc' ]; then . '/home/argha/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/argha/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/argha/google-cloud-sdk/completion.zsh.inc'; fi
 
 eval "$(fzf --zsh)"
 
@@ -75,10 +82,3 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/argha/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/argha/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/argha/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/argha/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
