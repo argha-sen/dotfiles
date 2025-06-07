@@ -55,8 +55,6 @@ alias ga="git add"
 alias cm="gcloud compute ssh iamslowdeath@instance-1 --zone us-central1-a"
 alias lg="lazygit"
 
-export CPLUS_INCLUDE_PATH='/home/arghas/local/include'
-export LIBRARY_PATH='/home/arghas/local/lib/'
 export EDITOR="nvim"
 
 path=('/home/senargha/.local/bin' $path)
@@ -68,15 +66,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-
-# Load Angular CLI autocompletion.
-source <(ng completion script)
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/argha/google-cloud-sdk/path.zsh.inc' ]; then . '/home/argha/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/argha/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/argha/google-cloud-sdk/completion.zsh.inc'; fi
 eval "$(fzf --zsh)"
 
 # pnpm
@@ -86,3 +75,10 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/argha/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/argha/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/argha/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/argha/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
