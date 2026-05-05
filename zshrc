@@ -39,26 +39,37 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:vim:*:*files' ignored-patterns '*.o'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+zstyle ':completion:*:(scp|ssh|sftp|rsync):*' hosts $(awk '/^Host / {for (i=2;i<=NF;i++) print $i}' ~/.ssh/config | grep -v '[*?]' )
+
 
 
 alias mk='make -j4'
-alias ls='eza'
-alias ll="eza -la"
 alias gs='git status'
 alias gl='git log'
 alias gcm='git commit -m'
 alias vim='nvim'
 alias gd='git diff'
 alias ga="git add"
-alias cm="gcloud compute ssh iamslowdeath@instance-1 --zone us-central1-a"
-alias lg="lazygit"
+alias ls='eza --icons --group-directories-first'
+alias ll='eza -lh --icons --group-directories-first'
+alias la='eza -lha --icons --group-directories-first'
+alias lt='eza --tree --level=2 --icons'
+alias lg='eza -lh --git --icons --group-directories-first'
 
 export EDITOR="nvim"
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  # Linuxbrew path
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  # macOS on Apple Silicon (M1, M2, M3, M4)
+  if [[ -d "/opt/homebrew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  fi
+fi
 eval "$(starship init zsh)"
 
-path=('/home/senargha/.local/bin' $path)
+path=('/home/senargha/.local/bin' '/Users/argha/.bun/bin' '/Applications/Tailscale.app/Contents/MacOS' $path)
 export PATH
 
 bindkey "^R" history-incremental-search-backward
@@ -82,3 +93,11 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# Created by `pipx` on 2025-12-26 06:29:50
+export PATH="$PATH:/Users/argha/.local/bin"
+source ~/venvs/quick/bin/activate
+
+# Ollama tuning for local models
+export OLLAMA_KV_CACHE_TYPE=q4_0
+export OLLAMA_CONTEXT_LENGTH=131072
